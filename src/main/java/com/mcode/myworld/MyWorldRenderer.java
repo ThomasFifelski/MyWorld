@@ -39,6 +39,8 @@ import com.mcode.mjl.andriod.gles20.WavefrontObj;
 
 
 class MyWorldRenderer implements GLSurfaceView.Renderer {
+	public static String TAG = "GLES20TriangleRenderer"; // For logging purposes
+	
 	public volatile float mAngleX = 0.0f;
 	public volatile float mAngleY = 0.0f;
 	
@@ -75,31 +77,26 @@ class MyWorldRenderer implements GLSurfaceView.Renderer {
     private int maPositionHandle;
 
     private Context mContext;
-    private static String TAG = "GLES20TriangleRenderer"; // For logging purposes
     
-
     
     public MyWorldRenderer(Context context) {
-    	//WavefrontObj wierdObj = new WavefrontObj(null, null);
-    	
         mContext = context;
-        
-        loadWavefront();
-       
-        
-        vertexBuffer = ByteBuffer.allocateDirect(vertexList.size() * FLOAT_SIZE_BYTES).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        float[] vertexArray = new float[vertexList.size()];
-        for(int i = 0; i < vertexList.size(); i ++) {
-        	Log.i(TAG, "" + vertexList.get(i));
-        	vertexArray[i] = vertexList.get(i);
-        }
-        vertexBuffer.put(vertexArray).position(0);
-        indexBuffer = ByteBuffer.allocateDirect(indexList.size() * SHORT_SIZE_BYTES).order(ByteOrder.nativeOrder()).asShortBuffer();
-        short[] indexArray = new short[indexList.size()];
-        for(int i = 0; i < indexList.size(); i ++) {
-        	indexArray[i] = indexList.get(i);
-        }
-        indexBuffer.put(indexArray).position(0);
+        WavefrontObj wierdObj = new WavefrontObj(mContext.getResources().openRawResource(R.raw.creature), null);
+//        loadWavefront();
+//       
+//        vertexBuffer = ByteBuffer.allocateDirect(vertexList.size() * FLOAT_SIZE_BYTES).order(ByteOrder.nativeOrder()).asFloatBuffer();
+//        float[] vertexArray = new float[vertexList.size()];
+//        for(int i = 0; i < vertexList.size(); i ++) {
+//        	Log.i(TAG, "" + vertexList.get(i));
+//        	vertexArray[i] = vertexList.get(i);
+//        }
+//        vertexBuffer.put(vertexArray).position(0);
+//        indexBuffer = ByteBuffer.allocateDirect(indexList.size() * SHORT_SIZE_BYTES).order(ByteOrder.nativeOrder()).asShortBuffer();
+//        short[] indexArray = new short[indexList.size()];
+//        for(int i = 0; i < indexList.size(); i ++) {
+//        	indexArray[i] = indexList.get(i);
+//        }
+//        indexBuffer.put(indexArray).position(0);
         
     }
 
@@ -159,9 +156,7 @@ class MyWorldRenderer implements GLSurfaceView.Renderer {
 			}
 		} catch (Exception e) {
 			Log.e(TAG, e.toString());
-			e.printStackTrace();
 		} 
-    	
     }
 
     public void onSurfaceCreated(GL10 glUnused, EGLConfig config) {
