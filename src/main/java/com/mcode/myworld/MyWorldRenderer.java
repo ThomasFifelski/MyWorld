@@ -1,30 +1,4 @@
-/*
- * Copyright (C) 2011 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.mcode.myworld;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -44,16 +18,6 @@ class MyWorldRenderer implements GLSurfaceView.Renderer {
 	
 	public volatile float mAngleX = 0.0f;
 	public volatile float mAngleY = 0.0f;
-	
-	private List<Float> vertexList = new ArrayList<Float>();
-	private List<Short> indexList = new ArrayList<Short>();
-	private FloatBuffer vertexBuffer;
-	private ShortBuffer indexBuffer;
-	
-	private static final int SHORT_SIZE_BYTES = 2;
-    private static final int FLOAT_SIZE_BYTES = 4;
-    private static final int TRIANGLE_VERTICES_DATA_STRIDE_BYTES = 3 * FLOAT_SIZE_BYTES;
-
 
     private final String mVertexShader =
         "uniform mat4 uMVPMatrix;     \n" +
@@ -68,12 +32,9 @@ class MyWorldRenderer implements GLSurfaceView.Renderer {
         "  gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0); \n" +
         "}\n";
 
-    MVPMatrix matrix = new MVPMatrix();
+    private MVPMatrix matrix = new MVPMatrix();
 
     private int mProgram;
-    private int muMVPMatrixHandle;
-    private int maPositionHandle;
-
     private Context mContext;
     private WavefrontObj wierdObj;
     
@@ -88,7 +49,7 @@ class MyWorldRenderer implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         GLES20.glClear( GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glUseProgram(mProgram);
-//
+
 //        maPositionHandle = GLES20.glGetAttribLocation(mProgram, "aPosition");
 //        GLES20.glEnableVertexAttribArray(maPositionHandle);
 //        GLES20.glVertexAttribPointer(maPositionHandle, 3, GLES20.GL_FLOAT, false, TRIANGLE_VERTICES_DATA_STRIDE_BYTES, vertexBuffer);
@@ -105,9 +66,7 @@ class MyWorldRenderer implements GLSurfaceView.Renderer {
 //
 //        GLES20.glDrawElements(GLES20.GL_TRIANGLES, indexList.size(), GLES20.GL_UNSIGNED_SHORT, indexBuffer); 
         
-        
         wierdObj.drawFrame(mProgram,  "aPosition", "uMVPMatrix");
-
     }
 
     public void onSurfaceChanged(GL10 glUnused, int width, int height) {
