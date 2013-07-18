@@ -13,6 +13,7 @@ class MyWorldGLSurfaceView extends GLSurfaceView {
 	MVPMatrix matrix;
     public MyWorldGLSurfaceView(Context context) {
         super(context);
+        super.setEGLConfigChooser(8 , 8, 8, 8, 16, 0);
         setEGLContextClientVersion(2);
         renderer = new MyWorldRenderer(context);
         matrix = renderer.getMatrix();
