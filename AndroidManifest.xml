@@ -24,7 +24,7 @@
     <uses-sdk android:targetSdkVersion="11" android:minSdkVersion="8"/>
     <application
             android:label="@string/app_name">
-        <activity android:name="Commander"
+        <activity android:name="Bow Down"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
                 android:launchMode="singleTask"
                 android:configChanges="orientation|keyboardHidden">
